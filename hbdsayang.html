@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Selamat Ulang Tahun Iikaaa</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Georgia', serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: linear-gradient(135deg, #000000, #434343); /* hitam ke abu elegan */
+      color: #fff;
+      text-align: center;
+    }
+    .card {
+      background: linear-gradient(145deg, #ffffff, #f2f2f2); /* putih elegan */
+      border-radius: 20px;
+      box-shadow: 0 8px 30px rgba(255,255,255,0.2);
+      padding: 40px;
+      max-width: 600px;
+      border: 2px solid #d4af37; /* emas elegan */
+    }
+    h1, h2, p {
+      margin: 10px 0;
+    }
+    h1 {
+      font-size: 2.2em;
+      color: #d4af37; /* emas */
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      min-height: 80px;
+      line-height: 1.4em;
+    }
+    h2 {
+      font-size: 1.6em;
+      color: #000;
+      min-height: 50px;
+    }
+    p {
+      font-size: 1.2em;
+      color: #333;
+      min-height: 60px;
+      white-space: pre-wrap;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1 id="title"></h1>
+    <h2 id="subtitle"></h2>
+    <p id="message"></p>
+  </div>
+
+  <canvas id="confettiCanvas"></canvas>
+
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <script>
+    const texts = [
+      { id: "title", text: "Happy Birthday sayang<br>Ika Agustiawati" },
+      { id: "subtitle", text: "ke-23 Tahun" },
+      { id: "message", text: "kita berdoa dulu yahh jangan lupa aamiin 🤲" },
+      { id: "message", text: "ya allah berikanlah kesehatan disetiap langkah ikaa" },
+      { id: "message", text: "mudahkan dan lancarkan lah rejeki ikaa" },
+      { id: "message", text: "berikanlah kepada ikaa umur yang panjang dan ridhoilah langkahnya" },
+      { id: "message", text: "mudahkan dan lancarkan lah segala urusan ikaa" },
+      { id: "message", text: "dan berikanlah selalu kebahagian di setiap langkah ikaa ya allah" },
+      { id: "message", text: "aamiin ya robbal alamin 🤲" },
+      { id: "message", text: "❤️ sekali lagi happy birthday sayangku" },
+      { id: "message", text: "aku juga selalu berdoa kita bisa sama sama selamanya 🤲" },
+      { id: "message", text: "maaf yahh kalo nabil belum kasi apa apa 🙏" },
+      { id: "message", text: "😘 Btw mau hadiah apa, sayangku? nanti chat aja okey" },
+      { id: "message", text: "mudahan dengan hal kecil ini dulu sayang bisa seneng" },
+      { id: "message", text: "i love you more sayangku 🫶" }
+    ];
+
+    let index = 0;
+
+    function typeWriterEffect(text, elementId, callback) {
+      let i = 0;
+      const element = document.getElementById(elementId);
+      element.innerHTML = "";
+      function typing() {
+        if (i < text.length) {
+          if (text.substring(i, i+4) === "<br>") {
+            element.innerHTML += "<br>";
+            i += 4;
+          } else {
+            element.innerHTML += text.charAt(i);
+            i++;
+          }
+          setTimeout(typing, 50);
+        } else {
+          if (callback) callback();
+        }
+      }
+      typing();
+    }
+
+    function showNextText() {
+      if (index >= texts.length) return; // selesai
+      const { id, text } = texts[index];
+      typeWriterEffect(text, id, () => {
+        confetti({ particleCount: 120, spread: 100, origin: { y: 0.6 } });
+        index++;
+        setTimeout(showNextText, 5000); // jeda 5 detik antar kalimat
+      });
+    }
+
+    // otomatis jalan saat halaman dibuka
+    window.onload = () => {
+      showNextText();
+    };
+  </script>
+</body>
+</html>
